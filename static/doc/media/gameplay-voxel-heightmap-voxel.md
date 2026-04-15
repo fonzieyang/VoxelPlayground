@@ -1,6 +1,6 @@
 # Heightmap Voxel
 
- ![Heightmap Voxels](/resources/HeightVoxel.jpg)
+ ![Heightmap Voxels](../resources/HeightVoxel.jpg)
 
 The `HeightmapVoxels` component allows you to create voxel-based terrain using a heightmap and a colormap texture. This is useful for creating large ground surfaces that support voxel destruction and physics.
 
@@ -17,7 +17,7 @@ The `HeightmapVoxels` component allows you to create voxel-based terrain using a
 5. **Configure Settings**: Adjust the `Tile Size`, `Height Scale`, and other parameters as needed.
 6. **Play**: The terrain is generated automatically when the game starts (in the `Start()` method).
 
-   <img src="/resources/HeightVoxelSettings.jpg" alt="Heightmap Voxels Settings" style="max-width: 640px;" />
+   <img src="../resources/HeightVoxelSettings.jpg" alt="Heightmap Voxels Settings" style="max-width: 640px;" />
 
 ### Parameters
 

@@ -7,7 +7,7 @@ This is particularly useful for:
 *   Batch replacing materials (e.g., changing all "Wood" to "Metal").
 *   Setting up specific material configurations for character models.
 
-![Voxel Data Editor](/resources/VoxDataEditor.jpg)
+![Voxel Data Editor](../resources/VoxDataEditor.jpg)
 
 ## Opening the Tool
 

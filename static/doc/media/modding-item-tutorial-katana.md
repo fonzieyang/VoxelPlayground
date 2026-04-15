@@ -8,7 +8,7 @@ This tutorial explains the current **Katana** sample, which now lives in `Assets
 
 Create or import a `.vox` katana model, then generate a prefab with the voxel import tools.
 
-![Katana Vox](/resources/KatanaVox.jpg)
+![Katana Vox](../resources/KatanaVox.jpg)
 
 The generated prefab becomes the visual base for the weapon.
 
@@ -19,7 +19,7 @@ The sample katana reads sound references from `JsProperties`, so import and conf
 * Swing start.
 * Successful destruction / slice feedback.
 
-![](/resources/AudioEvent.jpg)
+![](../resources/AudioEvent.jpg)
 
 ## Step 3: Add the TypeScript component
 
@@ -79,7 +79,7 @@ The important migration point is that the gameplay behavior is no longer authore
 
 Open `manifest.asset` and add the katana prefab to **Export Prefabs**.
 
-<img src="/resources/katanamanifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
+<img src="../resources/katanamanifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
 
 ## Step 7: Test and publish
 

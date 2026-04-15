@@ -8,7 +8,7 @@
 <h2 id="material-id-mapping" class="tsd-anchor-link">Material ID Mapping<a href="#material-id-mapping" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>In Voxel Playground, the physical properties of a voxel (such as hardness, flammability, and visual type) are determined by its <strong>Material ID</strong>. When you create a model in MagicaVoxel, the game uses the <strong>Color Palette Index</strong> of each voxel to assign its Material ID.</p>
 <h3 id="mapping-logic" class="tsd-anchor-link">Mapping Logic<a href="#mapping-logic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<p><img src="/resources/MagicaVoxelId.jpg" alt="Magica Voxel Id"></p>
+<p><img src="../media/MagicaVoxelId.jpg" alt="Magica Voxel Id"></p>
 <p>The mapping divides the palette into groups of 8. Every <strong>8 colors</strong> in the MagicaVoxel palette correspond to <strong>1 Material ID</strong>.</p>
 <p>The formula used by the game is:
 <code>Material ID = Ceil(Palette Index / 8)</code></p>
@@ -153,7 +153,7 @@
 <li>Import your <code>.vox</code> files.</li>
 <li>Click <strong>Convert</strong> to generate the prefabs.</li>
 </ol>
-<img src="/resources/ImportVox.png" alt="Importing vox files via Asset Processor" style="max-width: 720px;" />
+<img src="../media/ImportVox.png" alt="Importing vox files via Asset Processor" style="max-width: 720px;" />
 <h3 id="post-import-configuration" class="tsd-anchor-link">Post-Import Configuration<a href="#post-import-configuration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>After conversion, the system generates a prefab for your model. This prefab will typically have a <strong>VoxelObjectProxy</strong> component attached, which handles rendering, physics, and persistence.</p>
 <h2 id="naming-for-scene" class="tsd-anchor-link">Naming for scene<a href="#naming-for-scene" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>

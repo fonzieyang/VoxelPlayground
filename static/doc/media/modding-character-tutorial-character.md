@@ -13,7 +13,7 @@ First, determine the overall size of your character.
 1.  Select the **Character Preset** or size option in the inspector.
 2.  Adjust the skeleton size to match your intended design (e.g., standard human, giant, dwarf).
 
-    ![Character Preset](/resources/CharPreset.png)
+    ![Character Preset](../resources/CharPreset.png)
 
 ### 2. Preview Voxel Body
 
@@ -33,4 +33,4 @@ Finally, ensure the visual model aligns perfectly with the skeleton.
 1.  Manually move and rotate the limb parts in the scene view until they align correctly with the target skeletal positions.
 2.  Ensure the voxel mesh fits naturally with the animations.
 
-    ![Character Part Alignment](/resources/CharPart.png)
+    ![Character Part Alignment](../resources/CharPart.png)

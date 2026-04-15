@@ -8,7 +8,7 @@ This guide walks through the current VoxModTK workflow for creating a new mod. T
 2. Enter your **Creator Name** and **Mod Name**.
 3. Click **Create Mod**.
 
-<img src="/resources/CreateMod.png" alt="Create Mod Wizard" style="max-width: 480px;" />
+<img src="../resources/CreateMod.png" alt="Create Mod Wizard" style="max-width: 480px;" />
 
 The wizard creates your mod under `Assets/Mod/com.<creator>.<modname>`.
 
@@ -57,7 +57,7 @@ export class MyModComponent {
 
 Open `manifest.asset` in your mod root and fill in the metadata for your mod.
 
-<img src="/resources/ModManifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
+<img src="../resources/ModManifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
 
 Most importantly:
 

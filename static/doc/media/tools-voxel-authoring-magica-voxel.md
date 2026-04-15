@@ -17,7 +17,7 @@ In Voxel Playground, the physical properties of a voxel (such as hardness, flamm
 
 ### Mapping Logic
 
-![Magica Voxel Id](/resources/MagicaVoxelId.jpg)
+![Magica Voxel Id](../resources/MagicaVoxelId.jpg)
 
 The mapping divides the palette into groups of 8. Every **8 colors** in the MagicaVoxel palette correspond to **1 Material ID**.
 
@@ -73,7 +73,7 @@ Once you have created your `.vox` models, you need to import them into the ModTo
 2.  Import your `.vox` files.
 3.  Click **Convert** to generate the prefabs.
 
-<img src="/resources/ImportVox.png" alt="Importing vox files via Asset Processor" style="max-width: 720px;" />
+<img src="../resources/ImportVox.png" alt="Importing vox files via Asset Processor" style="max-width: 720px;" />
 
 ### Post-Import Configuration
 

@@ -4,7 +4,7 @@ The `CharacterPresetProxy` component is the central configuration hub for creati
 
 ## Character Size
 
-![Skeleton Type](/resources/SkeletonType.jpg)
+![Skeleton Type](../resources/SkeletonType.jpg)
 
 You can configure the character's base size using the `CharacterSize` option in `CharacterPresetProxy`.
 
@@ -48,7 +48,7 @@ Select a behavior pattern from the `CharacterAIBehavior` dropdown. This determin
 
 ## Body Parts (Skeleton)
 
-![Skeleton Type](/resources/CharPreset.png)
+![Skeleton Type](../resources/CharPreset.png)
 
 The character's body is assembled from individual voxel parts. Each part is a `VoxelObjectProxy`.
 

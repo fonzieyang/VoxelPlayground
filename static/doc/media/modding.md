@@ -11,9 +11,9 @@ Use the asset import tooling to convert source `.vox` files into prefabs:
 3. Generate the prefab.
 4. Add the generated prefab to `manifest.asset`.
 
-<img src="/resources/ImportVox.png" alt="ImportVox" style="max-width: 480px;" />
+<img src="../resources/ImportVox.png" alt="ImportVox" style="max-width: 480px;" />
 
-<img src="/resources/ConfigManifest.png" alt="Config Manifest" style="max-width: 480px;" />
+<img src="../resources/ConfigManifest.png" alt="Config Manifest" style="max-width: 480px;" />
 
 ## Add gameplay logic with TypeScript
 

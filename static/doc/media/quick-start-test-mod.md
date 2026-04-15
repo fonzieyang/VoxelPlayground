@@ -18,7 +18,7 @@ Use this to catch missing exports, type errors, and common script issues before 
 
 Use the **Mod Exporter** window in Unity for the normal workflow.
 
-![Mod Exporter](/resources/ModExporter.jpg)
+![Mod Exporter](../resources/ModExporter.jpg)
 
 1. Open **Vox Mod Tools > Mod Exporter**.
 2. Select your mod.

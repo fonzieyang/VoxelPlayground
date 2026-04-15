@@ -23,7 +23,7 @@ For destructible buildings that need to stay rooted to the ground until their ba
 
 Refer to the [Scene Naming Guide](./tools-voxel-authoring-magica-voxel.md#naming-for-scene) for more details.
 
-<img src="/resources/ModNYC.jpg" style="max-width: 720px;" />
+<img src="../resources/ModNYC.jpg" style="max-width: 720px;" />
 
 ## Step 2: Import and Setup
 
@@ -45,7 +45,7 @@ To create a large, solid ground for the city, use the **HeightmapVoxels** system
     *   Ensure textures are **Read/Write Enabled**.
     *   See [Heightmap Voxels](./gameplay-voxel-heightmap-voxel.md) for detailed setup.
 
-<img src="/resources/PrefabNYC.jpg" style="max-width: 720px;" />
+<img src="../resources/PrefabNYC.jpg" style="max-width: 720px;" />
 
 ### 4. Configure Unyielding Area
 For your `C_` buildings to stand upright:

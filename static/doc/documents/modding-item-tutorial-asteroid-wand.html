@@ -7,18 +7,18 @@
 <li>An asteroid projectile model.</li>
 </ul>
 <p>You can author them in MagicaVoxel or convert another model into <code>.vox</code>.</p>
-<p><img src="/resources/ModWand.jpg" alt="Wand voxel model"></p>
+<p><img src="../resources/ModWand.jpg" alt="Wand voxel model"></p>
 <p>For the asteroid, choose a hard material mapping so the projectile behaves like a penetrating round. The sample uses a color index that maps to a high-hardness material, which is why the spawned asteroid punches through softer voxel targets.</p>
-<p><img src="/resources/ModAsteroid.jpg" alt="Asteroid voxel model"></p>
+<p><img src="../resources/ModAsteroid.jpg" alt="Asteroid voxel model"></p>
 <h2>Step 2: Import and prepare the prefabs</h2>
 <ol>
 <li>Import the <code>.vox</code> files into Unity.</li>
 <li>Generate prefabs with the voxel import tooling.</li>
 <li>Open the wand data in the <strong>Voxel Data Editor</strong> if you need to remap imported colors to the correct material IDs.</li>
 </ol>
-<img src="/resources/ConvertAsteroid.jpg" alt="Importing vox files via Asset Processor" style="max-width: 240px;" />
+<img src="../resources/ConvertAsteroid.jpg" alt="Importing vox files via Asset Processor" style="max-width: 240px;" />
 <p>For a wooden wand, remap the wand voxels to the wood material set.</p>
-<p><img src="/resources/WandReplace.jpg" alt="Replacing materials in Voxel Data Editor"></p>
+<p><img src="../resources/WandReplace.jpg" alt="Replacing materials in Voxel Data Editor"></p>
 <h2>Step 3: Wire the prefab for TypeScript</h2>
 <p>The current sample does not add a custom C# <code>EntityAsteroidWand</code> script. Instead:</p>
 <ol>
@@ -31,7 +31,7 @@
 </ol>
 <p>The TypeScript script reads that property and uses it when spawning projectiles.</p>
 <p>Use the sample prefab layout as reference:</p>
-<p><img src="/resources/WandOutline.jpg" alt="Wand Prefab hierarchy and component setup"></p>
+<p><img src="../resources/WandOutline.jpg" alt="Wand Prefab hierarchy and component setup"></p>
 <h2>Step 4: Understand the TypeScript logic</h2>
 <p>The weapon logic in <code>Scripts/wand.ts</code> follows this flow:</p>
 <ul>
@@ -70,7 +70,7 @@
 <p>The sample script instantiates that child object at runtime and sets <code>PxRigidBody.velocity</code> directly, so verify the rigidbody exists on the asteroid child object before testing.</p>
 <h2>Step 6: Configure the manifest</h2>
 <p>Open <code>manifest.asset</code> and add the prefabs you want to ship.</p>
-<img src="/resources/wandmanifest.png" alt="Asteroid Wand Manifest Configuration" style="max-width: 480px;" />
+<img src="../resources/wandmanifest.png" alt="Asteroid Wand Manifest Configuration" style="max-width: 480px;" />
 <p>At minimum:</p>
 <ul>
 <li>Export the wand prefab.</li>

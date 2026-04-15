@@ -3,7 +3,7 @@
 <p><a href="https://mod.io/g/voxelplayground/m/katana#description">Katana Mod on mod.io</a></p>
 <h2 id="step-1-import-the-katana-model" class="tsd-anchor-link">Step 1: Import the katana model<a href="#step-1-import-the-katana-model" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>Create or import a <code>.vox</code> katana model, then generate a prefab with the voxel import tools.</p>
-<p><img src="/resources/KatanaVox.jpg" alt="Katana Vox"></p>
+<p><img src="../media/KatanaVox.jpg" alt="Katana Vox"></p>
 <p>The generated prefab becomes the visual base for the weapon.</p>
 <h2 id="step-2-prepare-audio" class="tsd-anchor-link">Step 2: Prepare audio<a href="#step-2-prepare-audio" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>The sample katana reads sound references from <code>JsProperties</code>, so import and configure the Sonity assets you want to use for:</p>
@@ -11,7 +11,7 @@
 <li>Swing start.</li>
 <li>Successful destruction / slice feedback.</li>
 </ul>
-<p><img src="/resources/AudioEvent.jpg" alt=""></p>
+<p><img src="../media/AudioEvent.jpg" alt=""></p>
 <h2 id="step-3-add-the-typescript-component" class="tsd-anchor-link">Step 3: Add the TypeScript component<a href="#step-3-add-the-typescript-component" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>The current sample does not use a custom <code>EntityKatana.cs</code> MonoBehaviour. Instead:</p>
 <ol>
@@ -45,7 +45,7 @@
 <p>The important migration point is that the gameplay behavior is no longer authored as a custom C# subclass. The prefab keeps its standard engine-side weapon component and TypeScript layers the custom cut behavior on top.</p>
 <h2 id="step-6-configure-the-manifest" class="tsd-anchor-link">Step 6: Configure the manifest<a href="#step-6-configure-the-manifest" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>Open <code>manifest.asset</code> and add the katana prefab to <strong>Export Prefabs</strong>.</p>
-<img src="/resources/katanamanifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
+<img src="../media/katanamanifest.png" alt="Mod Manifest Configuration" style="max-width: 480px;" />
 <h2 id="step-7-test-and-publish" class="tsd-anchor-link">Step 7: Test and publish<a href="#step-7-test-and-publish" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>Lint the mod before exporting:</p>
 <pre><code class="bash"><span class="hl-4">npm</span><span class="hl-1"> </span><span class="hl-9">run</span><span class="hl-1"> </span><span class="hl-9">lint:mod</span><span class="hl-1"> </span><span class="hl-0">--</span><span class="hl-1"> </span><span class="hl-9">com.cydream.katana</span>
