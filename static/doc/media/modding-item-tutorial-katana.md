@@ -56,16 +56,16 @@ Representative setup:
 
 ```ts
 export class Katana {
-    private bindTo: CS.VoxelPlayground.Mod.JsComponentProxy;
-    private weapon: CS.VoxelPlayground.Entity.EntityFirableWeapon;
+    private bindTo: VX.Mod.JsComponentProxy;
+    private weapon: VX.Entity.EntityFirableWeapon;
 
-    constructor(bindTo: CS.VoxelPlayground.Mod.JsComponentProxy) {
+    constructor(bindTo: VX.Mod.JsComponentProxy) {
         this.bindTo = bindTo;
         this.weapon = bindTo.GetComponent(
-            puerts.$typeof(CS.VoxelPlayground.Entity.EntityFirableWeapon)
-        ) as CS.VoxelPlayground.Entity.EntityFirableWeapon;
+            puerts.$typeof(VX.Entity.EntityFirableWeapon)
+        ) as VX.Entity.EntityFirableWeapon;
 
-        CS.VoxelPlayground.Mod.ModAPI.AddWeaponTriggerPressedListener(
+        VX.Mod.ModAPI.AddWeaponTriggerPressedListener(
             this.weapon,
             () => this.onTriggerPressed()
         );

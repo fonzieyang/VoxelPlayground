@@ -17,19 +17,19 @@ In TypeScript, register these through `ModAPI` listeners bound to the built-in w
 ## Recommended TypeScript pattern
 
 ```ts
-const ModAPI = CS.VoxelPlayground.Mod.ModAPI;
+const ModAPI = VX.Mod.ModAPI;
 
 export class CustomWeaponLogic {
-    private bindTo: CS.VoxelPlayground.Mod.JsComponentProxy;
-    private weapon: CS.VoxelPlayground.Entity.EntityFirableWeapon;
+    private bindTo: VX.Mod.JsComponentProxy;
+    private weapon: VX.Entity.EntityFirableWeapon;
     private readonly triggerPressedHandler: () => void;
     private readonly triggerReleasedHandler: () => void;
 
-    constructor(bindTo: CS.VoxelPlayground.Mod.JsComponentProxy) {
+    constructor(bindTo: VX.Mod.JsComponentProxy) {
         this.bindTo = bindTo;
         this.weapon = bindTo.GetComponent(
-            puerts.$typeof(CS.VoxelPlayground.Entity.EntityFirableWeapon)
-        ) as CS.VoxelPlayground.Entity.EntityFirableWeapon;
+            puerts.$typeof(VX.Entity.EntityFirableWeapon)
+        ) as VX.Entity.EntityFirableWeapon;
         this.triggerPressedHandler = () => this.onTriggerPressed();
         this.triggerReleasedHandler = () => this.onTriggerReleased();
 
@@ -64,13 +64,13 @@ This is useful for:
 Example:
 
 ```ts
-const ModAPI = CS.VoxelPlayground.Mod.ModAPI;
+const ModAPI = VX.Mod.ModAPI;
 
 export class CustomInputReader {
-    private bindTo: CS.VoxelPlayground.Mod.JsComponentProxy;
-    private input: CS.VoxelPlayground.Mod.ModAPI.Input;
+    private bindTo: VX.Mod.JsComponentProxy;
+    private input: VX.Mod.ModAPI.Input;
 
-    constructor(bindTo: CS.VoxelPlayground.Mod.JsComponentProxy) {
+    constructor(bindTo: VX.Mod.JsComponentProxy) {
         this.bindTo = bindTo;
         this.input = new ModAPI.Input();
         this.bindTo.onUpdate = (dt) => this.onUpdate(dt);

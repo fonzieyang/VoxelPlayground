@@ -41,9 +41,9 @@ Minimal pattern:
 
 ```ts
 export class MyModComponent {
-    private bindTo: CS.VoxelPlayground.Mod.JsComponentProxy;
+    private bindTo: VX.Mod.JsComponentProxy;
 
-    constructor(bindTo: CS.VoxelPlayground.Mod.JsComponentProxy) {
+    constructor(bindTo: VX.Mod.JsComponentProxy) {
         this.bindTo = bindTo;
         this.bindTo.onUpdate = (dt) => this.onUpdate(dt);
     }

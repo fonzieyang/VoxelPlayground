@@ -27,7 +27,7 @@ These are the preferred tools for gameplay features such as explosions, sword sl
 ### Example: spherical destruction
 
 ```ts
-const ModAPI = CS.VoxelPlayground.Mod.ModAPI;
+const ModAPI = VX.Mod.ModAPI;
 
 ModAPI.DemolishVoxelSphere(
     voxelDestructor,
@@ -66,7 +66,7 @@ When you only need to inspect voxel data, use the read helpers:
 ### Example: watch for heavy damage
 
 ```ts
-const ModAPI = CS.VoxelPlayground.Mod.ModAPI;
+const ModAPI = VX.Mod.ModAPI;
 
 const initialCount = ModAPI.GetVoxelOriginalSolidCount(voxelVolume);
 
@@ -87,7 +87,7 @@ This is the same family of pattern used by the `Homelander` sample.
 If you want a voxel object to burst apart rather than just lose a region, use:
 
 ```ts
-CS.VoxelPlayground.Mod.ModAPI.ExplodeVoxelObject(voxelDestructor, true, true);
+VX.Mod.ModAPI.ExplodeVoxelObject(voxelDestructor, true, true);
 ```
 
 Use this for scripted destruction set pieces, death reactions, or failure states.

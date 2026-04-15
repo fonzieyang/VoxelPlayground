@@ -33,7 +33,7 @@ const didHit = CS.Px5.Unity.PxPhysics.Raycast(
     bindTo.transform.forward,
     hitRef,
     100,
-    CS.VoxelPlayground.Engine.LayerMasksHelper.defaultMask.value,
+    VX.Engine.LayerMasksHelper.defaultMask.value,
     CS.UnityEngine.QueryTriggerInteraction.Ignore
 );
 
@@ -51,9 +51,9 @@ Typical pattern:
 
 ```ts
 export class MyPhysicsLogic {
-    private bindTo: CS.VoxelPlayground.Mod.JsComponentProxy;
+    private bindTo: VX.Mod.JsComponentProxy;
 
-    constructor(bindTo: CS.VoxelPlayground.Mod.JsComponentProxy) {
+    constructor(bindTo: VX.Mod.JsComponentProxy) {
         this.bindTo = bindTo;
         this.bindTo.onCollisionEnter = (collision) => this.onCollisionEnter(collision);
         this.bindTo.onCollisionExit = (collision) => this.onCollisionExit(collision);
