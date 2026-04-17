@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Welcome to the VoxModTK workflow for **Voxel Playground**. The current toolkit is built around voxel assets, Unity prefabs, and TypeScript gameplay scripts driven by `JsComponentProxy`.
+Welcome to the Mod workflow for **Voxel Playground**. The current toolkit is built around voxel assets, Unity prefabs, and TypeScript gameplay scripts driven by `JsComponentProxy`.
 
 ## Modding workflow
 
@@ -25,6 +25,14 @@ Before you begin:
 
 * Use the current **Voxel Playground Modding Toolkit** project.
 * Use the Unity version required by the toolkit project.
+* Install [Node.js](https://nodejs.org/en/), the runtime environment for JavaScript, which includes `npm`.
+* Install the TypeScript tooling dependencies in `/Puer-Project`:
+
+```cmd
+cd /Puer-Project
+npm install
+```
+
 * Use a voxel editor such as **MagicaVoxel** for `.vox` authoring.
 * Use the PC build of **Voxel Playground** for the fastest iteration loop.
 
@@ -35,7 +43,7 @@ Custom gameplay logic should be authored in TypeScript:
 * Export your classes from `Scripts/index.ts`.
 * Attach `JsComponentProxy` to the prefab that should run the script.
 * Use `JsProperties` to pass prefab references into the script.
-* Validate with `npm run lint:mod -- <modId>` before export.
+* Validate with `npm run lint:mod -- <modId>` from `\Puer-Project` before export.
 
 ## Next step
 

@@ -1,6 +1,6 @@
 # Publishing Your Mod
 
-This guide covers packaging a VoxModTK mod and uploading it to [mod.io](https://mod.io/).
+This guide covers packaging a Voxel Playground mod and uploading it to [mod.io](https://mod.io/).
 
 ## Prerequisites
 

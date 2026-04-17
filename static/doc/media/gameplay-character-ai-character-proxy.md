@@ -2,6 +2,8 @@
 
 The `CharacterPresetProxy` component is the central configuration hub for creating custom characters in **Voxel Playground**. It defines the character's physical attributes, AI behavior, combat stats, and visual appearance (via voxel models).
 
+If you want the full modding workflow, including voxel preparation, import, limb alignment, manifest setup, and export, see [Tutorial: Configuring a Character](./modding-character-tutorial-character.md).
+
 ## Character Size
 
 ![Skeleton Type](../resources/SkeletonType.jpg)
@@ -19,6 +21,8 @@ You can configure the character's base size using the `CharacterSize` option in 
 *   **Property**: `CharacterHeightScale`
 *   **Default**: `1.0`
 *   **Description**: A multiplier to fine-tune the character's height on top of the `CharacterSize` preset.
+
+In a practical workflow, modders usually set the rough body part layout in MagicaVoxel first, then use `CharacterSize`, `CharacterHeightScale`, and limb alignment in the imported prefab to reach the final in-game proportions. The initial T-pose, A-pose, or source size does not need to be exact if the final proxy setup is correct.
 
 ## Enemy Info
 
@@ -39,12 +43,16 @@ The `EnemyInfo` field references a ScriptableObject that defines the character's
 *   **Defense**: Immunities to specific effects (`Knock Out`, `Fire`, `Poison`).
 *   **Sound**: Audio events for death, aggression ("Reaching"), and background music (`Rank Bgm`).
 
+This is one of the main gameplay-facing settings modders usually adjust after character import. The modding tutorial shows where this fits in the end-to-end prefab setup.
+
 ## AI Behavior
 
 Select a behavior pattern from the `CharacterAIBehavior` dropdown. This determines how the character acts in combat.
 
 *   **Zombie Variants**: `ZombieNormal`, `ZombieRunner`, `ZombieAcid`, `ZombieBoomer`, `ZombieMutant`, `ZombieGiant`.
 *   **Soldier**: `SoldierLv1`.
+
+Like `EnemyInfo`, this is usually configured after the voxel parts have been imported and assigned to the skeleton.
 
 ## Body Parts (Skeleton)
 
@@ -57,5 +65,7 @@ The character's body is assembled from individual voxel parts. Each part is a `V
 *   **Legs**: `LegUpperL`, `LegLowerL`, `FootL` (and Right counterparts)
 
 Each `VoxelObjectProxy` should be assigned a `.vox` file (via the `voxelFile` field) representing that specific body part.
+
+For the best import result, the source `.vox` file should already be separated into individual body parts with clear names. See [Tutorial: Configuring a Character](./modding-character-tutorial-character.md) for the recommended naming, import process, and skeleton alignment workflow.
 
 

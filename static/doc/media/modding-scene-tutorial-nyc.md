@@ -2,7 +2,7 @@
 
 This tutorial demonstrates how to create a destructible city environment mod, similar to the **NYC** sample scene.
 
-**Path in Mod Toolkit**: `Assets/Samples/NYC`
+**Path in Mod Toolkit**: `Assets/Samples/com.cydream.nyc`
 
 [NYC Mod on mod.io](https://mod.io/g/voxel-playground/m/nyc#description)
 
@@ -43,6 +43,7 @@ To create a large, solid ground for the city, use the **HeightmapVoxels** system
 2.  Add the `HeightmapVoxels` component.
 3.  Assign your **Heightmap** and **Colormap** textures.
     *   Ensure textures are **Read/Write Enabled**.
+    *   Ensure the textures are **not compressed**.
     *   See [Heightmap Voxels](./gameplay-voxel-heightmap-voxel.md) for detailed setup.
 
 <img src="../resources/PrefabNYC.jpg" style="max-width: 720px;" />
@@ -58,9 +59,9 @@ For your `C_` buildings to stand upright:
 
 ## Step 3: Configure Mod Manifest
 
-Register your scene in the `ModManifest`.
+Register your scene in the `manifest`.
 
-1.  Open your `ModManifest` asset.
+1.  Open your `manifest` asset.
 2.  Add the Scene Prefab to the **Export Prefabs** list.
 3.  Ensure the mod type and details are correct.
 

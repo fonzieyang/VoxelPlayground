@@ -1,6 +1,6 @@
 # Creating Your First Mod
 
-This guide walks through the current VoxModTK workflow for creating a new mod. The toolkit now scaffolds mods for TypeScript scripting through Puerts, so you should treat TypeScript as the default gameplay scripting path.
+This guide walks through the current workflow for creating a new mod. The toolkit now scaffolds mods for TypeScript scripting through Puerts, so you should treat TypeScript as the default gameplay scripting path.
 
 ## Step 1: Create a new mod
 
@@ -74,13 +74,3 @@ After importing assets and configuring your prefabs:
 4. Install locally or package the output for mod.io.
 
 The exporter writes builds to the project's `Assets/Export` pipeline output used by the toolkit.
-
-## Step 6: Validate your scripts
-
-Before exporting, lint the mod from `Puer-Project`:
-
-```bash
-npm run lint:mod -- com.yourname.yourmod
-```
-
-This catches common TypeScript and packaging mistakes before you test in-game.

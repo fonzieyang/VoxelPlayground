@@ -1,38 +1,63 @@
 # Connect a Building
 
-This page describes the practical workflow for building pieces that need to connect or snap together in gameplay.
+This page explains the high-level logic behind the building destruction system.
 
-## Choose the correct base content
+If you want the authoring workflow, see [Tutorial: Sample Building](./modding-scene-tutorial-sample-building.md). That page shows how to prepare modules, import them as building elements, assemble the final structure, and run the builder.
 
-For connectable building parts:
+## Building logic overview
 
-* Start from imported voxel prefabs generated from your `.vox` files.
-* Use the building-oriented entity setup rather than treating the part as a plain decorative prop.
-* Keep the piece self-contained so each exported prefab represents one logical building module.
+A gameplay building is not treated as one large voxel object. Instead, it is built from many voxel modules, and those modules are connected together with joints.
 
-## Joint assets used by the toolkit
+This setup gives the game two important pieces of information:
 
-The project includes joint assets under `Assets/ScriptableObjects/Joint`, including:
+* which modules belong to the same building
+* how modules support each other and where they can break apart
 
-* `AttachableJoint`
-* `EnvironmentJoint`
-* `BuildingJoint5`
+In practice, the runtime logic is driven by `BuildingDestructionBuilder`
 
-These assets define how pieces can attach to each other or to the environment. When configuring building gameplay, inspect the generated prefab and assign the appropriate joint asset for the intended connection type.
+## How the builder sees a building
 
-## Practical workflow
+`BuildingDestructionBuilder` works with one or more `Buildings`, and each building contains a list of `Levels`.
 
-1. Import the voxel piece.
-2. Generate the prefab.
-3. Add the required building/entity components.
-4. Assign the joint asset that matches the connection behavior.
-5. Test the piece in-game by attaching it to existing compatible geometry.
+At a high level:
 
-## Validation tips
+1. You group the building into level roots.
+2. Each level contains the voxel modules for that floor or structural band.
+3. The builder collects all `VoxelVolume` modules under those roots.
+4. Joint and attachment data are generated between nearby modules.
 
-When a building piece fails to connect, check:
+This is why the sample building workflow asks you to create level roots first, then assign them to the builder before clicking `Build Destruction Joints`.
 
-* The prefab uses the correct entity/component type for building interactions.
-* The joint asset matches the target connection type.
-* The attachment point orientation is correct.
-* The prefab is included in `manifest.asset`.
+## What joints and attachment points do
+
+The generated joints define how separate modules stay connected as one building. Attachment points are created between nearby pieces so the destruction system knows where structural connections exist.
+
+Because of this, a building can:
+
+* behave like one assembled structure at the start
+* break into individual modules when enough force or damage is applied
+* collapse by level instead of acting like one single rigid block
+
+## How collapse is evaluated
+
+The builder also tracks structural load by level.
+
+The core idea in `BuildingDestructionBuilder` is:
+
+* each level measures the mass of its own modules
+* upper levels contribute load onto the levels below
+* the system compares load against the level's effective strength
+* if a level can no longer support the load, modules in that level are peeled off and the building starts collapsing
+
+This is why level organization matters. If modules are grouped into clear floors or structural sections, the collapse behavior is much more predictable.
+
+## Practical authoring guidance
+
+When making a destructible building:
+
+* split the building into modular voxel pieces instead of one merged object
+* keep the level hierarchy clean so each floor or structural section is easy to assign
+* assign the correct `Joint Data` asset on `BuildingDestructionBuilder`
+* keep the total module count reasonable for performance; the sample guide recommends staying under `100` pieces when possible
+
+The sample page [Tutorial: Sample Building](./modding-scene-tutorial-sample-building.md) is the reference workflow for setting this up in content.

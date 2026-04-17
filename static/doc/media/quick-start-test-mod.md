@@ -4,9 +4,17 @@ This guide explains how to validate, install, and test a mod built with the curr
 
 ## 1. Validate TypeScript before export
 
-Run the per-mod lint step from `Puer-Project` first:
+Install the `Puer-Project` dependencies first, then run the per-mod lint step from that same folder:
 
-```bash
+```cmd
+cd /Puer-Project
+npm install
+```
+
+After that, run:
+
+```cmd
+cd /Puer-Project
 npm run lint:mod -- com.yourname.yourmod
 ```
 
