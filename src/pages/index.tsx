@@ -317,7 +317,7 @@ export default function Home(): React.ReactElement {
           <div className="mx-auto max-w-6xl px-5">
             <h2 className="text-4xl font-semibold">Join Our Community</h2>
             <p className="mt-4 text-lg text-gray-300">
-              Stay updated with the latest news, connect with other players, and get game update information
+              Join other players, share destruction clips, and help shape what gets built next.
             </p>
             <div className="mt-12 flex flex-col items-center justify-center gap-6 md:flex-row md:flex-wrap">
               {socialLinks.map((link, i) => (
