@@ -220,7 +220,7 @@ export default function Home(): React.ReactElement {
       <main className="bg-black text-white">
         <section
           id="home"
-          className="relative flex min-h-[calc(100vh-var(--ifm-navbar-height))] scroll-mt-[var(--ifm-navbar-height)] items-center overflow-hidden"
+          className="relative flex min-h-[calc(100svh-var(--ifm-navbar-height))] scroll-mt-[var(--ifm-navbar-height)] items-center overflow-hidden"
         >
           <div className="absolute inset-0">
             <img
