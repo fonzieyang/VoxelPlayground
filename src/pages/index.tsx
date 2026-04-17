@@ -302,7 +302,7 @@ export default function Home(): React.ReactElement {
               {features.map((feature, i) => (
                 <InView
                   key={feature.title}
-                  className="border border-zinc-700 bg-zinc-800 p-8 text-center shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)]"
+                  className="rounded-lg border border-zinc-700 bg-zinc-800 p-8 text-center shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)]"
                   delayMs={i * 100}
                 >
                   <h3 className="text-xl font-semibold">{feature.title}</h3>
