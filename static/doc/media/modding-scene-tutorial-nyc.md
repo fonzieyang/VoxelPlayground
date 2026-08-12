@@ -67,7 +67,21 @@ Register your scene in the `manifest`.
 
 See [Configure Mod Manifest](./quick-start-create-mod.md#step-4-configure-the-manifest).
 
-## Step 4: Test and Publish
+## Step 4: Validate Scene Budget
+
+Before testing or publishing the scene, select the `Voxel Scene` component and click **Preview Voxel Objects**. The preview displays three budget metrics:
+
+*   **Current Tris**: The generated triangle count compared with the recommended budget.
+*   **Current Voxel Count**: The total voxel count compared with the recommended budget.
+*   **VoxelObjectProxy Count**: The number of voxel object proxies compared with the recommended budget.
+
+For the NYC sample, the preview reports `658,806 / 800,000` tris, `7,580,138 / 8,000,000` voxels, and `95 / 500` voxel object proxies, all within budget.
+
+<img src="../resources/nyc_budget.png" style="max-width: 720px;" />
+
+If any value is over budget, simplify the voxel model, split or merge objects where appropriate, and preview again before exporting.
+
+## Step 5: Test and Publish
 
 Build and test your city scene.
 
