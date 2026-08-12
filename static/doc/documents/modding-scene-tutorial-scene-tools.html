@@ -1,0 +1,207 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>modding-scene-tutorial-scene-tools | Voxel Playground Mod Documentation - v0.6.0</title><meta name="description" content="Documentation for Voxel Playground Mod Documentation"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><link rel="stylesheet" href="../assets/custom-nav.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script defer src="../assets/custom-nav.js"></script><link rel="icon" type="image/svg+xml" href="../resources/logo.svg"/></head><body><script>document.documentElement.dataset.theme="light";try{localStorage.setItem("tsd-theme","light")}catch{}document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Voxel Playground Mod Documentation - v0.6.0</a><div id="tsd-toolbar-links"><a href="../documents/manual.html">Manual</a><a href="../documents/api-overview.html">API Reference</a><a href="https://github.com/Cydream-Tech/VoxModTK" target="_blank" rel="noopener noreferrer">ModTK GitHub</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="" aria-current="page">modding-scene-tutorial-scene-tools</a></li></ul></div><div class="tsd-panel tsd-typography"><h1 id="scene-authoring-and-voxel-scene-editor" class="tsd-anchor-link">Scene Authoring and Voxel Scene Editor<a href="#scene-authoring-and-voxel-scene-editor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>This guide explains how to prepare a voxel scene for <strong>Voxel Playground</strong>, import it into the Mod Toolkit, and use the Mod Toolkit version of <strong>Voxel Scene Editor</strong> to adjust scene object types and generate door hinges.</p>
+<p><strong>Tool path in the Mod Toolkit</strong>: <code>Vox Mod Tools &gt; Voxel Scene Editor</code></p>
+<p>The Mod Toolkit version of Voxel Scene Editor contains two tabs:</p>
+<ul>
+<li><strong>Type Switch</strong> changes imported voxel objects between the A, B, C, and D scene types.</li>
+<li><strong>Door Generator</strong> configures one or more voxel objects as hinged doors.</li>
+</ul>
+<h2 id="1-split-the-scene-into-a-b-c-and-d-objects" class="tsd-anchor-link">1. Split the Scene Into A, B, C, and D Objects<a href="#1-split-the-scene-into-a-b-c-and-d-objects" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Build large scenes as multiple objects in the MagicaVoxel <strong>World Editor</strong>. Give every object a unique name and use an <code>A_</code>, <code>B_</code>, <code>C_</code>, or <code>D_</code> prefix to describe how it should behave in the game.</p>
+<p>The prefix is not only a naming convention. When a <code>.vox</code> scene is converted, the importer uses it to configure the generated <code>VoxelObjectProxy</code>, physics state, entity type, layer, and connection helpers.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Prefix</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Use for</th>
+<th style="text-align:left">Imported behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>A_</code></td>
+<td style="text-align:left">Static</td>
+<td style="text-align:left">Ground, roads, walls, and permanent structural geometry</td>
+<td style="text-align:left">Static <code>SceneStatic</code> object on the Building layer, tagged <code>Floor</code>, with a kinematic <code>RigidbodyProxy</code>. It is not destructible.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>B_</code></td>
+<td style="text-align:left">Dynamic</td>
+<td style="text-align:left">Crates, barriers, loose props, and debris</td>
+<td style="text-align:left">Destructible <code>SceneDynamic</code> object on the Item layer with dynamic physics. It can move freely after the scene loads.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>C_</code></td>
+<td style="text-align:left">Strong Connected</td>
+<td style="text-align:left">Destructible buildings or large objects that must remain supported by the environment</td>
+<td style="text-align:left">Destructible <code>SceneStrongConnected</code> object on the Item layer. An <code>UnyieldingArea</code> is added to keep connected voxels supported while the area overlaps the environment.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>D_</code></td>
+<td style="text-align:left">Weak Connected</td>
+<td style="text-align:left">Hanging signs, lamps, doors, and other objects attached through a breakable joint</td>
+<td style="text-align:left">Destructible <code>SceneWeakConnected</code> object on the Item layer. An <code>AttachmentPoint</code> and environment joint data are added so it can connect to nearby scene geometry.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="choosing-the-correct-type" class="tsd-anchor-link">Choosing the Correct Type<a href="#choosing-the-correct-type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Use these questions when splitting a scene:</p>
+<ol>
+<li>Must this object always remain fixed and act as part of the floor or environment? Use <code>A_</code>.</li>
+<li>Should it fall, roll, or be pushed without being anchored? Use <code>B_</code>.</li>
+<li>Should it be destructible but remain firmly supported until its connection to the environment is broken? Use <code>C_</code>.</li>
+<li>Should it hang from, hinge on, or weakly attach to another object? Use <code>D_</code>.</li>
+</ol>
+<p>For example, a small building scene could contain:</p>
+<pre><code class="text">A_Ground
+A_Foundation
+C_WallNorth
+C_WallSouth
+B_Table
+B_Crate
+D_HangingSign
+</code><button type="button">Copy</button></pre>
+
+<h3 id="important-naming-rules" class="tsd-anchor-link">Important Naming Rules<a href="#important-naming-rules" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Put the prefix at the beginning of the MagicaVoxel object name.</li>
+<li>Use an underscore after the letter, such as <code>C_Tower</code>, not <code>CTower</code>.</li>
+<li>Give every object in the <code>.vox</code> file a unique name. Duplicate names are renamed during conversion and make later updates harder to track.</li>
+<li>Objects without an A/B/C/D prefix are imported as static scene objects, but they are not configured exactly like an explicit <code>A_</code> floor object. Prefix every scene object to make its intended behavior clear.</li>
+</ul>
+<h2 id="2-import-the-scene" class="tsd-anchor-link">2. Import the Scene<a href="#2-import-the-scene" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ol>
+<li>Open <code>Vox Mod Tools &gt; Assets Processor</code>.</li>
+<li>Add the source <code>.vox</code> file.</li>
+<li>Set <strong>Type</strong> to <strong>Scene</strong>.</li>
+<li>Click <strong>Convert</strong>.</li>
+<li>Open the generated prefab and check that the scene hierarchy, transforms, and object types match the MagicaVoxel World scene.</li>
+</ol>
+<p>Each generated voxel object should have a <code>VoxelObjectProxy</code>. Voxel Scene Editor only operates on objects that belong to a <code>VoxelObjectProxy</code>, so select the generated voxel object or one of its children when using the tool.</p>
+<h2 id="3-open-voxel-scene-editor" class="tsd-anchor-link">3. Open Voxel Scene Editor<a href="#3-open-voxel-scene-editor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Open <code>Vox Mod Tools &gt; Voxel Scene Editor</code> in the Mod Toolkit.</p>
+<p>The Mod Toolkit window intentionally exposes only <strong>Type Switch</strong> and <strong>Door Generator</strong>. Tabs found in the full game project, such as Merge, Seats, Batch Select, and Settings, are not part of the Mod Toolkit workflow.</p>
+<h2 id="4-type-switch" class="tsd-anchor-link">4. Type Switch<a href="#4-type-switch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Use <strong>Type Switch</strong> when an imported object has the wrong prefix or when you want to change its behavior without returning to MagicaVoxel and converting the entire scene again.</p>
+<img src="../media/SceneToolTypeSwitch.jpg" alt="Voxel Scene Editor Type Switch tab" style="max-width: 720px;" />
+<h3 id="select-targets" class="tsd-anchor-link">Select Targets<a href="#select-targets" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>There are two ways to provide voxel objects to the tool:</p>
+<ul>
+<li>Leave <strong>Quick Mode</strong> disabled, drag objects into the target list, or use <strong>Add Selected Voxels</strong>.</li>
+<li>Enable <strong>Quick Mode (Use Current Selection)</strong> to process the current Unity selection directly.</li>
+</ul>
+<p>Quick Mode is useful for one-time edits. The target list is safer when you need to keep the same group selected while inspecting other objects.</p>
+<p>The window reports the number of valid voxel objects and their shared current type. If the selected objects have different types, <strong>Current Type</strong> is shown as mixed or unknown, but pressing a type button still applies that type to every valid target.</p>
+<h3 id="switch-object-type" class="tsd-anchor-link">Switch Object Type<a href="#switch-object-type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Press the button for the target type. The operation updates both the object name prefix and its Mod Toolkit authoring setup, including <code>VoxelObjectProxy.proxyType</code>, the physics state, the entity component, the layer and tag, and any type-specific helper objects.</p>
+<p>Changing away from C removes its <code>UnyieldingArea</code>. Changing away from D removes its <code>AttachmentPoint</code> objects. Check any manually customized connection helpers before changing an existing object to another type. The operation supports Unity Undo.</p>
+<h3 id="configure-c-strongpin-supports" class="tsd-anchor-link">Configure C StrongPin Supports<a href="#configure-c-strongpin-supports" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>When all active targets are C objects, the tool displays <strong>Add 4 Corner Supports</strong>.</p>
+<p>Use this for large buildings whose support should be distributed around their base instead of relying on a single central <code>UnyieldingArea</code>. The tool places support areas near the four bottom corners of the solid voxel bounds.</p>
+<p>The pin works only when the support area overlaps valid Building-layer environment geometry. After generating the supports:</p>
+<ol>
+<li>Inspect every <code>UnyieldingArea</code> in the Scene view.</li>
+<li>Confirm that each support intersects the intended <code>A_</code> ground or foundation.</li>
+<li>Move or resize a support if it misses the structure because of an unusual footprint.</li>
+</ol>
+<h3 id="configure-d-weakpin-attachment-points" class="tsd-anchor-link">Configure D WeakPin Attachment Points<a href="#configure-d-weakpin-attachment-points" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>When all active targets are D objects, the tool displays attachment-point controls.</p>
+<p>Use <strong>Up</strong>, <strong>Down</strong>, <strong>Right</strong>, <strong>Left</strong>, <strong>Front</strong>, or <strong>Back</strong> to move the D object's <code>AttachmentPoint</code> to the center of the selected solid voxel face. The selected face also determines the attachment direction shown by the yellow Scene view gizmo.</p>
+<p>Use <strong>Snap To Wall</strong> when the object is already close to the surface it should attach to. The tool searches nearby scene voxel objects, moves the attachment point to the closest suitable wall position, and orients the enabled attachment direction toward that wall.</p>
+<p>For reliable snapping:</p>
+<ul>
+<li>Place the D object close to the intended surface before running the command.</li>
+<li>Make sure the target wall is an imported voxel object in the current scene or prefab stage.</li>
+<li>Keep the intended wall within approximately 1.5 Unity units of the attachment search area.</li>
+<li>Inspect the yellow arrow after snapping. It should point from the attachment point toward the supporting surface.</li>
+</ul>
+<h2 id="5-door-generator" class="tsd-anchor-link">5. Door Generator<a href="#5-door-generator" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Use <strong>Door Generator</strong> to convert voxel objects into D-type weak-connected objects and configure their hinge attachment data.</p>
+<img src="../media/SceneToolDoorGenerator.jpg" alt="Voxel Scene Editor Door Generator tab" style="max-width: 720px;" />
+<h3 id="prepare-the-door" class="tsd-anchor-link">Prepare the Door<a href="#prepare-the-door" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Before generating a hinge:</p>
+<ol>
+<li>Import or create the door as a separate voxel object.</li>
+<li>Place the door at its final position and rotation.</li>
+<li>Make sure its solid voxel shape reaches the intended hinge edge.</li>
+<li>Select a <code>JointInfoData</code> asset whose joint type is <strong>HingeJoint</strong>.</li>
+</ol>
+<p>The generator accepts other joint data, but it logs a warning when the selected asset is not configured as a hinge. Use hinge joint data for predictable door behavior.</p>
+<h3 id="select-doors" class="tsd-anchor-link">Select Doors<a href="#select-doors" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>As in Type Switch, you can drag doors into the list or enable <strong>Quick Mode (Use Current Selection)</strong>.</p>
+<ul>
+<li>With exactly one door, you can pick the hinge anchor manually or use automatic generation.</li>
+<li>With multiple doors, use <strong>Generate Door Attachments</strong> to process the whole group automatically.</li>
+</ul>
+<h3 id="set-hinge-side" class="tsd-anchor-link">Set Hinge Side<a href="#set-hinge-side" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Choose one of the following <strong>Hinge Side</strong> options before automatic generation:</p>
+<ul>
+<li><strong>Left</strong> places the hinge on the negative side of the door's widest horizontal axis.</li>
+<li><strong>Right</strong> places it on the positive side of the door's widest horizontal axis.</li>
+<li><strong>Auto Closest Building</strong> compares both sides and chooses the side closest to an A-type or Building-layer voxel object.</li>
+</ul>
+<p>Left and Right are based on the door object's local axes. If the result appears reversed, check the door transform and local orientation, or use manual anchor picking.</p>
+<h3 id="pick-a-hinge-anchor-manually" class="tsd-anchor-link">Pick a Hinge Anchor Manually<a href="#pick-a-hinge-anchor-manually" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Use this workflow for a single door when the automatic edge is not suitable:</p>
+<ol>
+<li>Select or list exactly one door.</li>
+<li>Assign <strong>Joint Data</strong>.</li>
+<li>Click <strong>Pick Anchor / AttachmentPoint In Scene</strong>.</li>
+<li>Left-click the intended hinge position on the door mesh or collider in the Scene view.</li>
+<li>Press <code>Esc</code> or right-click to cancel anchor picking.</li>
+</ol>
+<p>After a successful pick, the tool immediately configures the door and selects the generated attachment-point object.</p>
+<h3 id="generate-door-attachments-automatically" class="tsd-anchor-link">Generate Door Attachments Automatically<a href="#generate-door-attachments-automatically" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ol>
+<li>Add one or more door objects.</li>
+<li>Assign <strong>Joint Data</strong>.</li>
+<li>Choose <strong>Left</strong>, <strong>Right</strong>, or <strong>Auto Closest Building</strong>.</li>
+<li>Click <strong>Generate Door Attachments</strong>.</li>
+<li>Check the processed and skipped counts shown at the bottom of the window.</li>
+</ol>
+<p>For every successfully processed door, the generator:</p>
+<ul>
+<li>changes the object to D WeakPin;</li>
+<li>creates or reuses <code>DoorHinge_AttachmentPoint</code>;</li>
+<li>places the attachment point at the selected hinge edge and halfway up the solid voxel bounds;</li>
+<li>adds or reuses <code>EntityDestructibleItem</code> and <code>RigidbodyProxy</code>;</li>
+<li>connects the attachment point and selected joint data to the door entity.</li>
+</ul>
+<p>Generating again updates the existing door hinge attachment instead of intentionally creating a new hinge each time.</p>
+<h2 id="6-recommended-scene-workflow" class="tsd-anchor-link">6. Recommended Scene Workflow<a href="#6-recommended-scene-workflow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ol>
+<li>Split the MagicaVoxel World scene into uniquely named A/B/C/D objects.</li>
+<li>Convert the <code>.vox</code> file as <strong>Scene</strong> with Assets Processor.</li>
+<li>Open the generated prefab and verify object placement.</li>
+<li>Use <strong>Type Switch</strong> to correct any misclassified objects.</li>
+<li>Adjust C supports and D attachment points.</li>
+<li>Use <strong>Door Generator</strong> for hinged doors.</li>
+<li>Save and apply prefab changes.</li>
+<li>Add the scene prefab to the mod manifest.</li>
+<li>Export the mod and test static geometry, dynamic props, destruction, supports, attachments, and doors in the game.</li>
+</ol>
+<h2 id="troubleshooting" class="tsd-anchor-link">Troubleshooting<a href="#troubleshooting" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="the-selected-object-does-not-appear-in-the-tool" class="tsd-anchor-link">The selected object does not appear in the tool<a href="#the-selected-object-does-not-appear-in-the-tool" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Select the generated voxel object or one of its children. The object must belong to a <code>VoxelObjectProxy</code>, and a project asset that is not open in a scene or Prefab Stage cannot be used as a current scene selection.</p>
+<h3 id="a-c-object-falls-immediately" class="tsd-anchor-link">A C object falls immediately<a href="#a-c-object-falls-immediately" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Check that its <code>UnyieldingArea</code> overlaps the intended A-type ground or foundation. Also confirm that the supporting object is configured as Building-layer static geometry.</p>
+<h3 id="a-d-object-does-not-attach-where-expected" class="tsd-anchor-link">A D object does not attach where expected<a href="#a-d-object-does-not-attach-where-expected" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Move its attachment point to the correct solid face or use <strong>Snap To Wall</strong>. Verify the yellow attachment arrow and confirm that the supporting voxel object is close enough.</p>
+<h3 id="pick-anchor-misses-the-door" class="tsd-anchor-link">Pick Anchor misses the door<a href="#pick-anchor-misses-the-door" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Click directly on the door's visible mesh or collider. If picking remains difficult, use automatic generation first and then reposition the generated <code>DoorHinge_AttachmentPoint</code>.</p>
+<h3 id="auto-closest-building-chooses-the-wrong-side" class="tsd-anchor-link">Auto Closest Building chooses the wrong side<a href="#auto-closest-building-chooses-the-wrong-side" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>The tool chooses the hinge candidate nearest to an A-type, Building-layer, or <code>EntityBuilding</code> voxel object. Remove unrelated nearby building geometry from the comparison area, choose Left or Right explicitly, or pick the anchor manually.</p>
+<h2 id="related-guides" class="tsd-anchor-link">Related Guides<a href="#related-guides" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li><a href="../documents/tools-voxel-authoring-magica-voxel.html">MagicaVoxel</a></li>
+<li><a href="../documents/modding-scene-tutorial-nyc.html">Tutorial: NYC</a></li>
+<li><a href="../documents/modding-scene-tutorial-track.html">Tutorial: Track</a></li>
+<li><a href="../documents/modding-scene-tutorial-sample-building.html">Tutorial: Sample Building</a></li>
+<li><a href="../documents/quick-start-create-mod.html">Create a Mod</a></li>
+<li><a href="../documents/quick-start-test-mod.html">Test a Mod</a></li>
+</ul>
+</div></div><div class="col-sidebar"><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">VoxelPlayground Mod Documentation v0.6.0</a><ul class="custom-nav-root tsd-small-nested-navigation" id="tsd-nav-container"><li class="custom-nav-item custom-nav-level-0"><details class="custom-nav-group" open><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><a href="../documents/manual.html" class="custom-nav-link">Manual</a></summary><ul><li class="custom-nav-item custom-nav-level-1"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><a href="../documents/quick-start.html" class="custom-nav-link">Quick Start Guide</a></summary><ul><li class="custom-nav-item custom-nav-level-2"><a href="../documents/quick-start-create-mod.html" class="custom-nav-link">Creating Your First Mod</a></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/quick-start-publish-mod.html" class="custom-nav-link">Publishing Your Mod</a></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/quick-start-test-mod.html" class="custom-nav-link">Test Mod</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-1"><details class="custom-nav-group" open><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><a href="../documents/modding.html" class="custom-nav-link">Modding Overview</a></summary><ul><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Avatar</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-avatar-tutorial-spiderman.html" class="custom-nav-link">Tutorial: SpiderMan</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Character</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-character-tutorial-character.html" class="custom-nav-link">Tutorial: Configuring a Character</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Item</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-item-tutorial-asteroid-wand.html" class="custom-nav-link">Tutorial: Asteroid Wand</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-item-tutorial-flamesword.html" class="custom-nav-link">Tutorial: FlameSword</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-item-tutorial-katana.html" class="custom-nav-link">Tutorial: Katana</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group" open><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Scene</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-scene-tutorial-homelander.html" class="custom-nav-link">Tutorial: Homelander</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-scene-tutorial-nyc.html" class="custom-nav-link">Tutorial: NYC</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-scene-tutorial-sample-building.html" class="custom-nav-link">Tutorial: Sample Building</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-scene-tutorial-scene-tools.html" class="custom-nav-link current">Scene Authoring and Voxel Scene Editor</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-scene-tutorial-track.html" class="custom-nav-link">Tutorial: Track</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Vehicle</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-vehicle-tutorial-car.html" class="custom-nav-link">Tutorial: Car</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/modding-vehicle-tutorial-helicopter.html" class="custom-nav-link">Tutorial: Helicopter</a></li></ul></details></li></ul></details></li><li class="custom-nav-item custom-nav-level-1"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><a href="../documents/gameplay.html" class="custom-nav-link">Gameplay System</a></summary><ul><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Building</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-building-connect-building.html" class="custom-nav-link">Connect a Building</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Character Ai</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-character-ai-ai-actions.html" class="custom-nav-link">AI Actions</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-character-ai-character-proxy.html" class="custom-nav-link">Character Proxy</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-character-ai-spawner.html" class="custom-nav-link">Spawner</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Physics</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-physics-builtin-vs-px5.html" class="custom-nav-link">Builtin Physics vs Px5</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-physics-voxel-collision.html" class="custom-nav-link">Voxel Collision</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Voxel</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-voxel-data-layout-property.html" class="custom-nav-link">Data Layout and Property</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-voxel-heightmap-voxel.html" class="custom-nav-link">Heightmap Voxel</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-voxel-material-id-visual.html" class="custom-nav-link">Material ID and Visual</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/gameplay-voxel-modify-voxels.html" class="custom-nav-link">Modify Voxels</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/gameplay-custom-interaction.html" class="custom-nav-link">Custom Interaction</a></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/gameplay-entity.html" class="custom-nav-link">Entity System</a></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/gameplay-scene-rendering-settings.html" class="custom-nav-link">Scene Rendering Settings</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-1"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Tools</span></summary><ul><li class="custom-nav-item custom-nav-level-2"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><span class="custom-nav-link">Voxel Authoring</span></summary><ul><li class="custom-nav-item custom-nav-level-3"><a href="../documents/tools-voxel-authoring-magica-voxel.html" class="custom-nav-link">MagicaVoxel</a></li><li class="custom-nav-item custom-nav-level-3"><a href="../documents/tools-voxel-authoring-voxel-data-editor.html" class="custom-nav-link">Voxel Data Editor</a></li></ul></details></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/tools-builtin-entity.html" class="custom-nav-link">Builtin Entities Preview</a></li><li class="custom-nav-item custom-nav-level-2"><a href="../documents/tools-mod-exporter.html" class="custom-nav-link">Mod Exporter</a></li></ul></details></li></ul></details></li><li class="custom-nav-item custom-nav-level-0"><details class="custom-nav-group"><summary class="custom-nav-summary"><svg class="custom-nav-summary-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><a href="../documents/api-overview.html" class="custom-nav-link">API Reference</a></summary><ul><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Engine.PointDataV2.html" class="custom-nav-link">VX.Engine.PointDataV2</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Engine.Utils.html" class="custom-nav-link">VX.Engine.Utils</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Mod.JsComponentProxy.html" class="custom-nav-link">VX.Mod.JsComponentProxy</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Mod.JsProperties.html" class="custom-nav-link">VX.Mod.JsProperties</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Mod.ModAPI.html" class="custom-nav-link">VX.Mod.ModAPI</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Mod.ModAPI.Input.html" class="custom-nav-link">VX.Mod.ModAPI.Input</a></li><li class="custom-nav-item custom-nav-level-1"><a href="../classes/modapi.api.VX.Utility.Giz.html" class="custom-nav-link">VX.Utility.Giz</a></li></ul></details></li></ul></nav></div><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#scene-authoring-and-voxel-scene-editor"><span>Scene <wbr/>Authoring and <wbr/>Voxel <wbr/>Scene <wbr/>Editor</span></a><ul><li><a href="#1-split-the-scene-into-a-b-c-and-d-objects"><span>1. <wbr/>Split the <wbr/>Scene <wbr/>Into <wbr/>A, <wbr/>B, <wbr/>C, and <wbr/>D <wbr/>Objects</span></a></li><li><ul><li><a href="#choosing-the-correct-type"><span>Choosing the <wbr/>Correct <wbr/>Type</span></a></li><li><a href="#important-naming-rules"><span>Important <wbr/>Naming <wbr/>Rules</span></a></li></ul></li><li><a href="#2-import-the-scene"><span>2. <wbr/>Import the <wbr/>Scene</span></a></li><li><a href="#3-open-voxel-scene-editor"><span>3. <wbr/>Open <wbr/>Voxel <wbr/>Scene <wbr/>Editor</span></a></li><li><a href="#4-type-switch"><span>4. <wbr/>Type <wbr/>Switch</span></a></li><li><ul><li><a href="#select-targets"><span>Select <wbr/>Targets</span></a></li><li><a href="#switch-object-type"><span>Switch <wbr/>Object <wbr/>Type</span></a></li><li><a href="#configure-c-strongpin-supports"><span>Configure <wbr/>C <wbr/>Strong<wbr/>Pin <wbr/>Supports</span></a></li><li><a href="#configure-d-weakpin-attachment-points"><span>Configure <wbr/>D <wbr/>Weak<wbr/>Pin <wbr/>Attachment <wbr/>Points</span></a></li></ul></li><li><a href="#5-door-generator"><span>5. <wbr/>Door <wbr/>Generator</span></a></li><li><ul><li><a href="#prepare-the-door"><span>Prepare the <wbr/>Door</span></a></li><li><a href="#select-doors"><span>Select <wbr/>Doors</span></a></li><li><a href="#set-hinge-side"><span>Set <wbr/>Hinge <wbr/>Side</span></a></li><li><a href="#pick-a-hinge-anchor-manually"><span>Pick a <wbr/>Hinge <wbr/>Anchor <wbr/>Manually</span></a></li><li><a href="#generate-door-attachments-automatically"><span>Generate <wbr/>Door <wbr/>Attachments <wbr/>Automatically</span></a></li></ul></li><li><a href="#6-recommended-scene-workflow"><span>6. <wbr/>Recommended <wbr/>Scene <wbr/>Workflow</span></a></li><li><a href="#troubleshooting"><span>Troubleshooting</span></a></li><li><ul><li><a href="#the-selected-object-does-not-appear-in-the-tool"><span>The selected object does not appear in the tool</span></a></li><li><a href="#a-c-object-falls-immediately"><span>A <wbr/>C object falls immediately</span></a></li><li><a href="#a-d-object-does-not-attach-where-expected"><span>A <wbr/>D object does not attach where expected</span></a></li><li><a href="#pick-anchor-misses-the-door"><span>Pick <wbr/>Anchor misses the door</span></a></li><li><a href="#auto-closest-building-chooses-the-wrong-side"><span>Auto <wbr/>Closest <wbr/>Building chooses the wrong side</span></a></li></ul></li><li><a href="#related-guides"><span>Related <wbr/>Guides</span></a></li></ul></div></details></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-6F55SYBBGC"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6F55SYBBGC');</script></body></html>
