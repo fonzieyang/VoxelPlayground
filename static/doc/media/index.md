@@ -30,7 +30,7 @@ git clone https://github.com/Cydream-Tech/VoxModTK.git
 ```
 
 * Use the current **Voxel Playground Modding Toolkit** project.
-* Use Unity version 6000.0.75f1
+* Use Unity version 6000.3.22f1
 * Install [Node.js](https://nodejs.org/en/), the runtime environment for JavaScript, which includes `npm`.
 * Install the TypeScript tooling dependencies in `/Puer-Project`:
 
