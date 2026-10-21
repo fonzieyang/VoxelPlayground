@@ -47,8 +47,10 @@ const config: Config = {
         docs: false,
         blog: false,
         sitemap: {
+          lastmod: 'date',
           changefreq: 'weekly',
           priority: 0.5,
+          ignorePatterns: ['/d', '/privacy.html'],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -69,15 +71,34 @@ const config: Config = {
       },
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: 'Voxel Playground',
-        url: 'https://voxelplayground.com/',
-        description: 'Voxel Playground is a touch-first micro-voxel destruction sandbox in VR for Meta Quest.',
-        sameAs: [
-          'https://www.meta.com/experiences/voxel-playground/9926748747373800/',
-          'https://www.youtube.com/@Voxel_Playground',
-          'https://discord.com/invite/CrYCjTudCH',
-          'https://www.tiktok.com/@voxel_playground',
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            name: 'Voxel Playground',
+            url: 'https://voxelplayground.com/',
+            description:
+              'Smash micro-voxel walls, weapons, and enemies in VR. Rob a bank, fight through a prison, or build a base. On Steam and Meta Quest.',
+            inLanguage: 'en',
+          },
+          {
+            '@type': 'VideoGame',
+            name: 'Voxel Playground',
+            url: 'https://voxelplayground.com/',
+            image: 'https://voxelplayground.com/img/vlcsnap-2025-09-03-15h39m23s266.png',
+            description:
+              'A fully destructible VR physics sandbox. Walls, weapons, vehicles, and enemies are micro-voxels. Play on Steam and Meta Quest.',
+            genre: ['Action', 'Simulation'],
+            gamePlatform: ['Meta Quest', 'Windows'],
+            playMode: 'SinglePlayer',
+            inLanguage: 'en',
+            sameAs: [
+              'https://store.steampowered.com/app/4350620/Voxel_Playground/',
+              'https://www.meta.com/experiences/voxel-playground/9926748747373800/',
+              'https://www.youtube.com/@Voxel_Playground',
+              'https://discord.com/invite/CrYCjTudCH',
+              'https://www.tiktok.com/@voxel_playground',
+            ],
+          },
         ],
       }),
     },
@@ -91,7 +112,7 @@ const config: Config = {
       items: [
         {href: '/#home', label: 'Home', position: 'right'},
         {href: '/#about', label: 'About', position: 'right'},
-        {href: '/d/', label: 'Docs', position: 'right'},
+        {href: '/doc/documents/manual.html', label: 'Docs', position: 'right'},
         {to: '/privacy', label: 'Privacy Policy', position: 'right'},
       ],
     },
@@ -107,6 +128,8 @@ const config: Config = {
           items: [
             {label: 'Home', to: '/#home'},
             {label: 'About', to: '/#about'},
+            {label: 'Modding Docs', href: '/doc/documents/manual.html'},
+            {label: 'Steam', href: 'https://store.steampowered.com/app/4350620/Voxel_Playground/'},
             {label: 'Privacy Policy', to: '/privacy'},
           ],
         },
@@ -115,7 +138,7 @@ const config: Config = {
           items: [{label: 'Contact us through Discord', href: 'https://discord.com/invite/CrYCjTudCH'}],
         },
       ],
-      copyright: '© 2025 Voxel Playground. All rights reserved.',
+      copyright: '© 2026 Voxel Playground. All rights reserved.',
     },
     colorMode: {
       defaultMode: 'dark',
@@ -125,12 +148,13 @@ const config: Config = {
     metadata: [
       {
         name: 'description',
-        content: 'Voxel Playground is a touch-first micro-voxel destruction sandbox in VR for Meta Quest.',
+        content:
+          'Smash micro-voxel walls, weapons, and enemies in VR. Rob a bank, fight through a prison, or build a base. On Steam and Meta Quest.',
       },
       {
         name: 'keywords',
         content:
-          'voxel playground, micro voxel, micro-voxel, voxel destruction, destruction sandbox vr, physics sandbox vr, vr destruction game, meta quest sandbox, meta quest destruction game, quest physics game, quest sandbox game, voxel sandbox vr, vr sandbox game, survival mode vr, zombie waves vr, base building vr, moddable vr sandbox, teardown vr, teardown-like vr, vr teardown alternative, better voxel project vr',
+          'voxel playground, micro-voxel, vr physics sandbox, vr destruction game, destructible vr, voxel sandbox, steam vr sandbox, meta quest sandbox, vr bank heist, vr zombie survival, vr base building, vr modding',
       },
       {
         property: 'og:type',

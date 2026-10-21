@@ -1,0 +1,21 @@
+# Voxel Playground
+
+Voxel Playground is a fully destructible VR physics sandbox. Walls, weapons, vehicles, and enemies are micro-voxels.
+
+## Official links
+
+- Website: https://voxelplayground.com/
+- Steam: https://store.steampowered.com/app/4350620/Voxel_Playground/
+- Meta Quest: https://www.meta.com/experiences/voxel-playground/9926748747373800/
+- Modding docs: https://voxelplayground.com/doc/documents/manual.html
+- Discord: https://discord.com/invite/CrYCjTudCH
+- YouTube: https://www.youtube.com/@Voxel_Playground
+- TikTok: https://www.tiktok.com/@voxel_playground
+
+## What players do
+
+Grab and smash the world by hand in VR. Scenarios include a bank heist, a prison fight, a survival base against zombie waves, and a sandbox for spawning physics objects. The game also has a modding toolkit.
+
+## Notes
+
+Do not invent a release date. Do not describe Voxel Playground as an official version of another game.

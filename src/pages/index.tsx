@@ -215,7 +215,10 @@ export default function Home(): React.ReactElement {
   );
 
   return (
-    <Layout title="Physical Micro-Voxel Destruction in VR" description="Grab-and-rip micro-voxel destruction in VR—build, break, and survive on Meta Quest.">
+    <Layout
+      title="Physical Micro-Voxel Destruction in VR"
+      description="Smash micro-voxel walls, weapons, and enemies in VR. Rob a bank, fight through a prison, or build a base. On Steam and Meta Quest."
+    >
       <main className="bg-black text-white">
         <section
           id="home"
@@ -261,28 +264,27 @@ export default function Home(): React.ReactElement {
               </p>
               <div className="mt-10 flex flex-col items-center gap-4">
                 <a
-                  href="https://www.meta.com/experiences/voxel-playground/9926748747373800/"
+                  href="https://store.steampowered.com/app/4350620/Voxel_Playground/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative inline-flex items-center justify-center overflow-hidden bg-red-900 px-8 py-4 text-sm font-bold uppercase tracking-widest text-red-50 shadow-[0_0_30px_-5px_rgba(220,38,38,0.6)] transition-all duration-300 hover:scale-105 hover:bg-red-800 hover:shadow-[0_0_50px_-5px_rgba(220,38,38,0.8)] border border-red-500/50"
                 >
                   <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_120%,rgba(220,38,38,0.8),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <span className="relative flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
-                    Get it on Meta Quest
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z" />
+                    </svg>
+                    Get it on Steam
                   </span>
                 </a>
                 <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <a
-                    href="https://store.steampowered.com/app/4350620/Voxel_Playground/"
+                    href="https://www.meta.com/experiences/voxel-playground/9926748747373800/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center border border-white/30 bg-white/10 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/15"
                   >
-                    <span className="flex items-center gap-2">
-                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z" /></svg>
-                      Get it on Steam
-                    </span>
+                    Get it on Meta Quest
                   </a>
                   <a
                     href="/doc/documents/manual.html"
@@ -317,6 +319,43 @@ export default function Home(): React.ReactElement {
                   <p className="mt-3 text-sm leading-6 text-gray-300">{feature.description}</p>
                 </InView>
   ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="play" className="scroll-mt-[var(--ifm-navbar-height)] border-t border-zinc-800 bg-zinc-900 py-20">
+          <div className="mx-auto max-w-6xl px-5">
+            <h2 className="text-4xl font-semibold">A fully destructible VR physics sandbox</h2>
+            <p className="mt-4 max-w-3xl text-lg text-gray-300">
+              Walls, weapons, vehicles, and enemies are micro-voxels. They collapse and explode the way you expect, and you are physics-driven too.{' '}
+              <a className="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white" href="https://store.steampowered.com/app/4350620/Voxel_Playground/" target="_blank" rel="noopener noreferrer">
+                Find it on Steam
+              </a>{' '}
+              or{' '}
+              <a className="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white" href="https://www.meta.com/experiences/voxel-playground/9926748747373800/" target="_blank" rel="noopener noreferrer">
+                Meta Quest
+              </a>
+              .
+            </p>
+            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+              <InView className="border border-zinc-700 bg-zinc-900 p-8">
+                <h3 className="text-xl font-semibold">Rob the bank</h3>
+                <p className="mt-3 text-sm leading-6 text-gray-300">
+                  A locked vault, valuables, a dog, drones, guards, and a getaway van. If it is in the world, you can smash it.
+                </p>
+              </InView>
+              <InView className="border border-zinc-700 bg-zinc-900 p-8" delayMs={100}>
+                <h3 className="text-xl font-semibold">Fight through the prison</h3>
+                <p className="mt-3 text-sm leading-6 text-gray-300">
+                  Cells, gates, watchtowers, and waves of NPCs. Reloading is physical, and bodies break apart.
+                </p>
+              </InView>
+              <InView className="border border-zinc-700 bg-zinc-900 p-8" delayMs={200}>
+                <h3 className="text-xl font-semibold">Build, or just smash the room</h3>
+                <p className="mt-3 text-sm leading-6 text-gray-300">
+                  Craft a base and hold off zombie waves, or open the sandbox, spawn physics objects, and change the rules.
+                </p>
+              </InView>
             </div>
           </div>
         </section>
