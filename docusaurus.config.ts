@@ -84,7 +84,7 @@ const config: Config = {
             '@type': 'VideoGame',
             name: 'Voxel Playground',
             url: 'https://voxelplayground.com/',
-            image: 'https://voxelplayground.com/img/vlcsnap-2025-09-03-15h39m23s266.png',
+            image: 'https://voxelplayground.com/img/og-2026-10.jpg',
             description:
               'A fully destructible VR physics sandbox. Walls, weapons, vehicles, and enemies are micro-voxels. Play on Steam and Meta Quest.',
             genre: ['Action', 'Simulation'],
@@ -105,7 +105,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/vlcsnap-2025-09-03-15h39m23s266.png',
+    image: 'img/og-2026-10.jpg',
     navbar: {
       title: 'Voxel Playground',
       hideOnScroll: true,

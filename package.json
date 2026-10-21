@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "docusaurus start",
-    "build": "node scripts/docs-sitemap.mjs && docusaurus build",
+    "build": "node scripts/docs-seo.mjs && node scripts/docs-sitemap.mjs && docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "swizzle": "docusaurus swizzle"

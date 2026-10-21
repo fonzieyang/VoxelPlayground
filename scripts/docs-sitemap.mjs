@@ -3,14 +3,11 @@ import path from 'node:path';
 
 const site = 'https://voxelplayground.com';
 const docRoot = path.resolve('static/doc');
-const pages = [
-  path.join(docRoot, 'index.html'),
-  ...fs
-    .readdirSync(path.join(docRoot, 'documents'))
-    .filter((name) => name.endsWith('.html'))
-    .sort()
-    .map((name) => path.join(docRoot, 'documents', name)),
-];
+const pages = fs
+  .readdirSync(path.join(docRoot, 'documents'))
+  .filter((name) => name.endsWith('.html'))
+  .sort()
+  .map((name) => path.join(docRoot, 'documents', name));
 
 const today = new Date().toISOString().slice(0, 10);
 const urls = pages
