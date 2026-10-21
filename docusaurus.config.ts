@@ -130,6 +130,7 @@ const config: Config = {
             {label: 'About', to: '/#about'},
             {label: 'Modding Docs', href: '/doc/documents/manual.html'},
             {label: 'Steam', href: 'https://store.steampowered.com/app/4350620/Voxel_Playground/'},
+            {label: 'Meta Quest', href: 'https://www.meta.com/experiences/voxel-playground/9926748747373800/'},
             {label: 'Privacy Policy', to: '/privacy'},
           ],
         },

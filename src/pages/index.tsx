@@ -84,6 +84,9 @@ function trackSocialClick(platform: SocialLink['platform']) {
 
 const HERO_VIDEO_ID = 'I_iUPpiW8VA';
 
+const heroActionClass =
+  'inline-flex min-h-[4.25rem] items-center justify-center gap-2 border border-white/30 bg-white/10 px-4 py-3 text-center text-sm font-bold uppercase leading-snug tracking-wide text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/15';
+
 declare global {
   interface Window {
     YT?: {Player: new (el: HTMLElement, opts: object) => {destroy: () => void}; PlayerState: {PLAYING: number}};
@@ -262,37 +265,36 @@ export default function Home(): React.ReactElement {
               <p className="mt-4 text-lg font-normal text-gray-200 drop-shadow-md md:text-xl">
                 Grab. Break. Build. Survive. Micro‑voxel mayhem you can touch in VR.
               </p>
-              <div className="mt-10 flex flex-col items-center gap-4">
+              <div className="mt-10 grid w-full max-w-4xl grid-cols-1 gap-4 md:grid-cols-3">
                 <a
                   href="https://store.steampowered.com/app/4350620/Voxel_Playground/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex items-center justify-center overflow-hidden bg-red-900 px-8 py-4 text-sm font-bold uppercase tracking-widest text-red-50 shadow-[0_0_30px_-5px_rgba(220,38,38,0.6)] transition-all duration-300 hover:scale-105 hover:bg-red-800 hover:shadow-[0_0_50px_-5px_rgba(220,38,38,0.8)] border border-red-500/50"
+                  className={heroActionClass}
                 >
-                  <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_120%,rgba(220,38,38,0.8),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <span className="relative flex items-center gap-2">
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z" />
-                    </svg>
-                    Get it on Steam
-                  </span>
+                  <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z" />
+                  </svg>
+                  Get it on Steam
                 </a>
-                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                  <a
-                    href="https://www.meta.com/experiences/voxel-playground/9926748747373800/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center border border-white/30 bg-white/10 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/15"
-                  >
-                    Get it on Meta Quest
-                  </a>
-                  <a
-                    href="/doc/documents/manual.html"
-                    className="inline-flex items-center justify-center border border-white/30 bg-white/10 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/15"
-                  >
-                    Read the Modding Docs
-                  </a>
-                </div>
+                <a
+                  href="https://www.meta.com/experiences/voxel-playground/9926748747373800/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={heroActionClass}
+                >
+                  <svg className="h-4 w-5 shrink-0" viewBox="0 0 640 512" fill="currentColor" aria-hidden="true">
+                    <path d="M640 317.9C640 409.2 600.6 466.4 529.7 466.4C467.1 466.4 433.9 431.8 372.8 329.8L341.4 277.2C333.1 264.7 326.9 253 320.2 242.2C300.1 276 273.1 325.2 273.1 325.2C206.1 441.8 168.5 466.4 116.2 466.4C43.42 466.4 0 409.1 0 320.5C0 177.5 79.78 42.4 183.9 42.4C234.1 42.4 277.7 67.08 328.7 131.9C365.8 81.8 406.8 42.4 459.3 42.4C558.4 42.4 640 168.1 640 317.9H640zM287.4 192.2C244.5 130.1 216.5 111.7 183 111.7C121.1 111.7 69.22 217.8 69.22 321.7C69.22 370.2 87.7 397.4 118.8 397.4C149 397.4 167.8 378.4 222 293.6C222 293.6 246.7 254.5 287.4 192.2V192.2zM531.2 397.4C563.4 397.4 578.1 369.9 578.1 322.5C578.1 198.3 523.8 97.08 454.9 97.08C421.7 97.08 393.8 123 360 175.1C369.4 188.9 379.1 204.1 389.3 220.5L426.8 282.9C485.5 377 500.3 397.4 531.2 397.4L531.2 397.4z" />
+                  </svg>
+                  Get it on Meta Quest
+                </a>
+                <a href="/doc/documents/manual.html" className={heroActionClass}>
+                  <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                    <path strokeLinejoin="round" d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3z" />
+                    <path strokeLinejoin="round" d="M12 12 4 7.5M12 12l8-4.5M12 12v9" />
+                  </svg>
+                  Read the Modding Docs
+                </a>
               </div>
             </div>
           </div>
